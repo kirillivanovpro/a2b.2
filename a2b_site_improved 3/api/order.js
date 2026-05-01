@@ -12,20 +12,41 @@ function normalizePhone(value = '') {
   return String(value).replace(/[^+\d]/g, '').slice(0, 20);
 }
 
+function getBody(req) {
+  if (!req.body) return {};
+
+  if (typeof req.body === 'string') {
+    try {
+      return JSON.parse(req.body);
+    } catch {
+      return {};
+    }
+  }
+
+  return req.body;
+}
+
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     res.setHeader('Allow', 'POST');
-    return res.status(405).json({ ok: false, error: 'Method not allowed' });
+
+    return res.status(405).json({
+      ok: false,
+      error: 'Method not allowed'
+    });
   }
 
   const token = process.env.TELEGRAM_BOT_TOKEN;
   const chatId = process.env.TELEGRAM_CHAT_ID;
 
   if (!token || !chatId) {
-    return res.status(500).json({ ok: false, error: 'Telegram environment variables are not configured' });
+    return res.status(500).json({
+      ok: false,
+      error: 'Telegram environment variables are not configured'
+    });
   }
 
-  const body = req.body || {};
+  const body = getBody(req);
 
   if (body.company) {
     return res.status(200).json({ ok: true });
@@ -41,7 +62,10 @@ export default async function handler(req, res) {
   const page = escapeHtml(body.page || 'Website');
 
   if (!name || !phone || !service) {
-    return res.status(400).json({ ok: false, error: 'Missing required fields' });
+    return res.status(400).json({
+      ok: false,
+      error: 'Missing required fields'
+    });
   }
 
   const message = `🚨 <b>JAUNS PIETEIKUMS A2B</b>
@@ -61,7 +85,9 @@ export default async function handler(req, res) {
   try {
     const response = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json'
+      },
       body: JSON.stringify({
         chat_id: chatId,
         text: message,
@@ -73,11 +99,17 @@ export default async function handler(req, res) {
     const data = await response.json();
 
     if (!response.ok || !data.ok) {
-      return res.status(502).json({ ok: false, error: data.description || 'Telegram request failed' });
+      return res.status(502).json({
+        ok: false,
+        error: data.description || 'Telegram request failed'
+      });
     }
 
     return res.status(200).json({ ok: true });
   } catch (error) {
-    return res.status(500).json({ ok: false, error: 'Server error' });
+    return res.status(500).json({
+      ok: false,
+      error: 'Server error'
+    });
   }
 }
