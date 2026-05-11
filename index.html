@@ -2,36 +2,39 @@
 <html lang="lv">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>A2B Transport — Kravas pārvadājumi Daugavpilī</title>
   <meta name="description" content="Kravas pārvadājumi, pārvākšanās un atkritumu izvešana Daugavpilī un Latgalē. Fiksētas cenas, WhatsApp pieteikums un ātrs izbraukums." />
   <meta name="robots" content="index,follow" />
   <meta name="theme-color" content="#0f3f22" />
 
   <style>
+    :root {
+      --green: #0f3f22;
+      --green-2: #176238;
+      --green-dark: #072713;
+      --orange: #ff6b35;
+      --orange-dark: #e95a24;
+      --text: #172019;
+      --muted: #66736a;
+      --bg: #f4f7f2;
+      --white: #ffffff;
+      --line: #dfe7df;
+      --soft: #eaf7ed;
+      --shadow: 0 18px 45px rgba(15, 63, 34, 0.14);
+      --radius: 22px;
+      --bottom-bar: 88px;
+    }
+
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
 
-    :root {
-      --green: #0f3f22;
-      --green2: #176238;
-      --orange: #ff6b35;
-      --orange2: #e95a24;
-      --text: #172019;
-      --muted: #66736a;
-      --bg: #f4f7f2;
-      --white: #ffffff;
-      --line: #dfe7df;
-      --shadow: 0 18px 45px rgba(15, 63, 34, 0.14);
-      --radius: 22px;
-    }
-
     html {
       scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
     }
 
     body {
@@ -39,10 +42,16 @@
       background: var(--bg);
       color: var(--text);
       line-height: 1.55;
+      overflow-x: hidden;
+      padding-bottom: var(--bottom-bar);
     }
 
     a {
       color: inherit;
+    }
+
+    img, svg {
+      max-width: 100%;
     }
 
     .container {
@@ -54,7 +63,7 @@
       position: sticky;
       top: 0;
       z-index: 50;
-      background: rgba(255, 255, 255, 0.94);
+      background: rgba(255, 255, 255, 0.96);
       backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--line);
     }
@@ -64,6 +73,7 @@
       align-items: center;
       justify-content: space-between;
       gap: 14px;
+      min-height: 76px;
       padding: 12px 0;
     }
 
@@ -75,23 +85,31 @@
       text-decoration: none;
       font-weight: 900;
       font-size: 18px;
+      min-width: 0;
     }
 
     .logo-mark {
-      width: 42px;
-      height: 42px;
+      width: 44px;
+      height: 44px;
+      flex: 0 0 44px;
       border-radius: 13px;
       background: var(--green);
       color: white;
       display: grid;
       place-items: center;
       font-weight: 900;
+      font-size: 22px;
+      letter-spacing: -1px;
+    }
+
+    .logo-text {
+      white-space: nowrap;
     }
 
     .top-actions {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
     }
 
     .lang {
@@ -101,16 +119,18 @@
       background: white;
       border: 1px solid var(--line);
       border-radius: 999px;
+      box-shadow: 0 8px 18px rgba(15, 63, 34, 0.08);
     }
 
     .lang button {
       border: 0;
       background: transparent;
-      padding: 8px 11px;
+      padding: 8px 12px;
       border-radius: 999px;
       cursor: pointer;
       font-weight: 900;
       color: var(--muted);
+      font-size: 14px;
     }
 
     .lang button.active {
@@ -129,12 +149,13 @@
       color: var(--green);
       text-decoration: none;
       font-weight: 900;
+      white-space: nowrap;
     }
 
     .hero {
       background:
         radial-gradient(circle at 18% 8%, rgba(255, 107, 53, 0.23), transparent 28%),
-        linear-gradient(135deg, #0f3f22 0%, #072713 100%);
+        linear-gradient(135deg, var(--green) 0%, var(--green-dark) 100%);
       color: white;
       padding: 72px 0 52px;
     }
@@ -163,6 +184,7 @@
       line-height: 1.04;
       letter-spacing: -1.5px;
       margin-bottom: 18px;
+      max-width: 760px;
     }
 
     .lead {
@@ -184,6 +206,7 @@
       align-items: center;
       justify-content: center;
       gap: 9px;
+      min-height: 54px;
       padding: 15px 22px;
       border-radius: 999px;
       border: 0;
@@ -191,7 +214,8 @@
       font-weight: 900;
       text-decoration: none;
       cursor: pointer;
-      transition: 0.18s ease;
+      transition: transform 0.18s ease, background 0.18s ease, box-shadow 0.18s ease;
+      text-align: center;
     }
 
     .btn:hover {
@@ -205,17 +229,12 @@
     }
 
     .btn-primary:hover {
-      background: var(--orange2);
+      background: var(--orange-dark);
     }
 
     .btn-secondary {
       background: white;
       color: var(--green);
-    }
-
-    .btn-dark {
-      background: var(--green);
-      color: white;
     }
 
     .hero-note {
@@ -226,461 +245,626 @@
     .stats {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      margin-top: 28px;
+      gap: 12px;
+      margin-top: 32px;
     }
 
     .stat {
-      padding: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      background: rgba(255, 255, 255, 0.08);
       border-radius: 18px;
-      background: rgba(255, 255, 255, 0.10);
-      border: 1px solid rgba(255, 255, 255, 0.14);
+      padding: 18px;
+      min-height: 116px;
     }
 
     .stat strong {
       display: block;
-      font-size: 23px;
-      color: white;
+      font-size: 32px;
+      line-height: 1.05;
+      margin-bottom: 8px;
+      letter-spacing: -0.5px;
     }
 
     .stat span {
-      color: rgba(255, 255, 255, 0.74);
-      font-size: 14px;
+      color: rgba(255, 255, 255, 0.78);
+      font-size: 16px;
     }
 
-    .card {
+    .calc-card, .card {
       background: white;
-      color: var(--text);
-      border-radius: var(--radius);
       border: 1px solid var(--line);
+      border-radius: var(--radius);
       box-shadow: var(--shadow);
+      overflow: hidden;
     }
 
-    .calculator {
+    .calc-card {
       padding: 24px;
     }
 
-    .calculator h2 {
+    .calc-card h2 {
       color: var(--green);
-      font-size: 25px;
+      font-size: 28px;
       line-height: 1.15;
       margin-bottom: 8px;
     }
 
-    .calculator p {
+    .calc-card > p {
       color: var(--muted);
-      margin-bottom: 16px;
+      margin-bottom: 18px;
     }
 
-    label {
-      display: grid;
-      gap: 7px;
-      font-weight: 900;
-      color: var(--green);
-    }
-
-    input,
-    select,
-    textarea {
-      width: 100%;
-      padding: 14px;
-      border: 1.5px solid var(--line);
-      border-radius: 14px;
-      font-size: 16px;
-      font-family: inherit;
-      background: white;
-      color: var(--text);
-      outline: none;
-    }
-
-    input:focus,
-    select:focus,
-    textarea:focus {
-      border-color: var(--green);
-      box-shadow: 0 0 0 4px rgba(22, 101, 52, 0.11);
-    }
-
-    textarea {
-      min-height: 112px;
-      resize: vertical;
-    }
-
-    .form-row {
+    .form-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 12px;
     }
 
-    .quote {
-      margin-top: 14px;
-      padding: 16px;
-      border-radius: 18px;
-      background: var(--bg);
+    .field-full {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      display: block;
+      font-weight: 800;
+      color: var(--green);
+      margin-bottom: 6px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      border: 1px solid #d7e2d8;
+      border-radius: 14px;
+      padding: 14px 16px;
+      font: inherit;
+      background: white;
+      color: var(--text);
+      outline: none;
+    }
+
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--green-2);
+      box-shadow: 0 0 0 4px rgba(23, 98, 56, 0.12);
+    }
+
+    .result {
+      background: #f7faf5;
       border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 18px;
+      margin-top: 14px;
     }
 
-    .quote small {
+    .result small {
+      display: block;
       color: var(--muted);
+      font-weight: 800;
+      margin-bottom: 6px;
     }
 
-    .quote-price {
+    .result strong {
+      display: block;
       color: var(--orange);
       font-size: 42px;
-      line-height: 1;
-      font-weight: 900;
-      margin: 8px 0;
+      line-height: 1.05;
+      margin-bottom: 8px;
+    }
+
+    .result p {
+      color: var(--muted);
+      font-size: 14px;
     }
 
     section {
-      padding: 56px 0;
+      padding: 72px 0;
     }
 
     .section-title {
-      max-width: 760px;
-      margin: 0 auto 28px;
       text-align: center;
+      max-width: 760px;
+      margin: 0 auto 34px;
     }
 
     .section-title h2 {
       color: var(--green);
-      font-size: clamp(28px, 4vw, 42px);
-      line-height: 1.1;
-      margin-bottom: 10px;
+      font-size: clamp(30px, 5.5vw, 46px);
+      line-height: 1.08;
       letter-spacing: -0.8px;
+      margin-bottom: 14px;
     }
 
     .section-title p {
       color: var(--muted);
-      font-size: 18px;
+      font-size: clamp(18px, 3.8vw, 23px);
+      line-height: 1.45;
     }
 
-    .grid-3 {
+    .services-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-    }
-
-    .grid-2 {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
       gap: 20px;
     }
 
     .service {
-      padding: 22px;
-      box-shadow: 0 12px 26px rgba(15, 63, 34, 0.06);
-    }
-
-    .service-head {
+      padding: 28px;
       display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
+      flex-direction: column;
       gap: 14px;
-      margin-bottom: 12px;
+      min-height: 100%;
     }
 
-    .service h3 {
+    .service-head h3 {
       color: var(--green);
-      font-size: 21px;
-      line-height: 1.2;
-    }
-
-    .service p {
-      color: var(--muted);
+      font-size: 27px;
+      line-height: 1.15;
+      margin-bottom: 8px;
+      letter-spacing: -0.3px;
     }
 
     .price {
       color: var(--orange);
-      font-size: 28px;
-      line-height: 1;
+      font-size: 40px;
+      line-height: 1.05;
       font-weight: 900;
-      white-space: nowrap;
+      letter-spacing: -0.5px;
+    }
+
+    .service p {
+      color: var(--muted);
+      font-size: 19px;
+      line-height: 1.55;
     }
 
     .pill {
       display: inline-flex;
-      margin-top: 14px;
-      width: fit-content;
-      padding: 7px 10px;
+      align-self: flex-start;
+      margin-top: auto;
+      padding: 9px 14px;
       border-radius: 999px;
-      background: #dcfce7;
+      background: #dcffe4;
       color: var(--green);
-      font-size: 13px;
       font-weight: 900;
+      font-size: 15px;
+      max-width: 100%;
+      white-space: normal;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      align-items: start;
     }
 
     .steps {
       display: grid;
       gap: 18px;
-      counter-reset: step;
     }
 
     .step {
       position: relative;
-      min-height: 54px;
-      padding-left: 68px;
+      padding-left: 88px;
+      min-height: 72px;
     }
 
     .step::before {
-      counter-increment: step;
-      content: counter(step);
+      content: attr(data-step);
       position: absolute;
       left: 0;
       top: 0;
-      width: 48px;
-      height: 48px;
-      border-radius: 16px;
+      width: 64px;
+      height: 64px;
+      border-radius: 18px;
       background: var(--green);
       color: white;
       display: grid;
       place-items: center;
-      font-size: 20px;
+      font-size: 28px;
       font-weight: 900;
     }
 
     .step h3 {
       color: var(--green);
-      margin-bottom: 5px;
+      font-size: 26px;
+      line-height: 1.2;
+      margin-bottom: 6px;
     }
 
     .step p {
       color: var(--muted);
+      font-size: 20px;
+      line-height: 1.45;
     }
 
     .features {
       display: grid;
-      gap: 12px;
+      gap: 14px;
     }
 
     .feature {
-      display: flex;
-      gap: 10px;
-      align-items: flex-start;
+      display: grid;
+      grid-template-columns: 28px 1fr;
+      gap: 12px;
+      align-items: start;
+      color: var(--muted);
+      font-size: 19px;
+      line-height: 1.45;
     }
 
     .feature span {
       color: var(--green);
       font-weight: 900;
+      font-size: 20px;
     }
 
     .order-wrap {
       display: grid;
-      grid-template-columns: 0.85fr 1.15fr;
-      gap: 22px;
-      align-items: stretch;
+      grid-template-columns: 0.8fr 1.2fr;
+      gap: 26px;
+      align-items: start;
     }
 
     .order-side {
-      padding: 28px;
-      border-radius: var(--radius);
-      background: linear-gradient(135deg, var(--green), #072713);
+      background:
+        radial-gradient(circle at 15% 10%, rgba(255, 107, 53, 0.18), transparent 30%),
+        linear-gradient(135deg, var(--green) 0%, var(--green-dark) 100%);
       color: white;
+      border-radius: var(--radius);
+      padding: 32px;
+      min-height: 100%;
     }
 
     .order-side h2 {
-      font-size: 32px;
+      font-size: clamp(31px, 5vw, 44px);
       line-height: 1.1;
-      margin-bottom: 14px;
+      margin-bottom: 16px;
     }
 
     .order-side p {
-      color: rgba(255, 255, 255, 0.78);
-      margin-bottom: 18px;
+      color: rgba(255, 255, 255, 0.84);
+      font-size: 19px;
+      margin-bottom: 22px;
     }
 
     .contact-line {
       margin: 12px 0;
+      font-size: 20px;
       font-weight: 900;
     }
 
-    .form-card {
-      padding: 24px;
+    .contact-line a {
+      color: white;
+      text-decoration-thickness: 2px;
+      text-underline-offset: 4px;
     }
 
-    form {
+    .form-card {
+      padding: 28px;
+    }
+
+    .form-row {
       display: grid;
-      gap: 12px;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+
+    .form-card label:not(.checkbox) {
+      margin-bottom: 14px;
     }
 
     .checkbox {
-      display: flex;
-      gap: 10px;
-      align-items: flex-start;
+      display: grid;
+      grid-template-columns: 28px 1fr;
+      gap: 12px;
+      align-items: start;
       color: var(--muted);
-      font-size: 14px;
-      font-weight: 500;
+      font-weight: 400;
+      margin: 12px 0 18px;
     }
 
     .checkbox input {
-      width: 18px;
-      height: 18px;
+      width: 28px;
+      height: 28px;
       margin-top: 2px;
+      accent-color: var(--green);
     }
 
     .honeypot {
       position: absolute;
       left: -9999px;
-      width: 1px;
-      height: 1px;
       opacity: 0;
+      height: 0;
     }
 
-    .success,
-    .error {
+    .success, .error {
       display: none;
-      margin-top: 12px;
-      padding: 14px;
-      border-radius: 16px;
-      font-weight: 900;
+      margin-top: 16px;
+      padding: 14px 16px;
+      border-radius: 14px;
+      font-weight: 800;
     }
 
     .success {
-      background: #d4edda;
-      color: #155724;
+      background: #e8f9ec;
+      color: var(--green);
     }
 
     .error {
-      background: #f8d7da;
-      color: #721c24;
+      background: #fff1ed;
+      color: #a5381a;
     }
 
     footer {
-      background: #111827;
+      background: #101c2b;
       color: white;
-      padding: 34px 0 96px;
+      padding: 50px 0;
+    }
+
+    footer p {
+      color: rgba(255, 255, 255, 0.78);
+      margin-top: 6px;
+      font-size: 16px;
+    }
+
+    footer a {
+      color: rgba(255, 255, 255, 0.88);
+      text-decoration: none;
     }
 
     .footer-grid {
       display: grid;
-      grid-template-columns: 1.2fr 1fr 1fr;
-      gap: 18px;
+      grid-template-columns: 1.1fr 0.8fr 1fr;
+      gap: 24px;
     }
 
-    footer p,
-    footer a {
-      color: rgba(255, 255, 255, 0.74);
-      text-decoration: none;
-    }
-
-    footer strong {
-      color: white;
+    .footer-grid strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 18px;
     }
 
     .sticky-mobile {
-      display: none;
       position: fixed;
-      left: 12px;
-      right: 12px;
-      bottom: 12px;
-      z-index: 80;
-      gap: 10px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 60;
+      display: none;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      padding: 12px 18px calc(12px + env(safe-area-inset-bottom));
+      background: rgba(244, 247, 242, 0.9);
+      backdrop-filter: blur(14px);
+      border-top: 1px solid rgba(223, 231, 223, 0.85);
     }
 
-    .sticky-mobile a {
-      flex: 1;
-      padding: 14px 12px;
+    .sticky-mobile .btn {
+      min-height: 58px;
+      padding: 14px 10px;
+      font-size: 17px;
+      box-shadow: none;
     }
 
-    @media (max-width: 900px) {
-      .hero {
-        padding-top: 42px;
-      }
-
+    @media (max-width: 940px) {
       .hero-grid,
-      .grid-3,
       .grid-2,
-      .order-wrap,
-      .footer-grid {
+      .order-wrap {
         grid-template-columns: 1fr;
       }
 
-      .stats {
-        grid-template-columns: 1fr;
+      .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 720px) {
+      body {
+        padding-bottom: calc(var(--bottom-bar) + env(safe-area-inset-bottom));
       }
 
-      .calculator {
-        order: -1;
+      .container {
+        width: min(100% - 36px, 560px);
       }
 
-      .form-row {
-        grid-template-columns: 1fr;
+      .topbar-inner {
+        min-height: 68px;
       }
 
+      .logo-text,
       .phone-top {
         display: none;
       }
 
-      .sticky-mobile {
-        display: flex;
-      }
-    }
-
-    @media (max-width: 540px) {
-      .container {
-        width: min(100% - 24px, 1120px);
+      .logo-mark {
+        width: 54px;
+        height: 54px;
+        flex-basis: 54px;
+        border-radius: 14px;
+        font-size: 24px;
       }
 
-      .logo span:last-child {
-        display: none;
+      .hero {
+        padding: 46px 0 42px;
+      }
+
+      h1 {
+        font-size: 44px;
+        letter-spacing: -1px;
+      }
+
+      .lead {
+        font-size: 22px;
       }
 
       .cta-row .btn {
         width: 100%;
       }
 
-      .service-head {
-        flex-direction: column;
+      .stats {
+        grid-template-columns: 1fr;
+        gap: 14px;
       }
 
-      .calculator,
-      .service,
+      .stat {
+        min-height: 0;
+        padding: 24px;
+      }
+
+      .form-grid,
+      .form-row,
+      .services-grid,
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      section {
+        padding: 56px 0;
+      }
+
+      .section-title {
+        margin-bottom: 28px;
+      }
+
+      .section-title h2 {
+        font-size: 37px;
+      }
+
+      .section-title p {
+        font-size: 23px;
+      }
+
+      .service {
+        padding: 26px;
+      }
+
+      .service-head h3 {
+        font-size: 29px;
+      }
+
+      .price {
+        font-size: 39px;
+      }
+
+      .service p {
+        font-size: 23px;
+        line-height: 1.55;
+      }
+
+      .pill {
+        font-size: 17px;
+        line-height: 1.3;
+        padding: 10px 14px;
+      }
+
+      .step {
+        padding-left: 86px;
+      }
+
+      .step h3 {
+        font-size: 27px;
+      }
+
+      .step p,
+      .feature,
+      .order-side p {
+        font-size: 22px;
+      }
+
+      .order-side,
       .form-card,
-      .order-side {
-        padding: 18px;
+      .calc-card {
+        padding: 26px;
+      }
+
+      .sticky-mobile {
+        display: grid;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .container {
+        width: calc(100% - 28px);
+      }
+
+      .hero {
+        padding-top: 38px;
+      }
+
+      h1 {
+        font-size: 38px;
+      }
+
+      .lead,
+      .section-title p,
+      .service p,
+      .step p,
+      .feature,
+      .order-side p {
+        font-size: 20px;
+      }
+
+      .section-title h2 {
+        font-size: 34px;
+      }
+
+      .service-head h3 {
+        font-size: 27px;
+      }
+
+      .price {
+        font-size: 36px;
+      }
+
+      .sticky-mobile {
+        padding-left: 14px;
+        padding-right: 14px;
+      }
+    }
+
+    @media (min-width: 721px) {
+      body {
+        padding-bottom: 0;
       }
     }
   </style>
 </head>
 
 <body>
-  <div class="topbar">
+  <header class="topbar">
     <div class="container topbar-inner">
-      <a class="logo" href="#top">
+      <a class="logo" href="#top" aria-label="A2B Transport">
         <span class="logo-mark">A2B</span>
-        <span>A2B Transport</span>
+        <span class="logo-text">A2B Transport</span>
       </a>
 
       <div class="top-actions">
-        <div class="lang">
-          <button type="button" class="active" data-lang-btn="lv">LV</button>
-          <button type="button" data-lang-btn="ru">RU</button>
+        <div class="lang" aria-label="Language switcher">
+          <button type="button" class="active" data-lang="lv">LV</button>
+          <button type="button" data-lang="ru">RU</button>
         </div>
-
-        <a class="phone-top js-phone-link" href="tel:+37128870200">
-          📞 <span class="js-phone-text">+371 28870200</span>
-        </a>
+        <a class="phone-top js-phone-link js-phone-text" href="tel:+37128870200">+371 28870200</a>
       </div>
     </div>
-  </div>
+  </header>
 
-  <header class="hero" id="top">
+  <section id="top" class="hero">
     <div class="container hero-grid">
       <div>
         <div class="badge" data-t="heroBadge">📍 Daugavpils un Latgale · 07:00-22:00</div>
-
         <h1 data-t="heroTitle">Kravas pārvadājumi Daugavpilī šodien — ar cenu pirms darba</h1>
-
-        <p class="lead" data-t="heroLead">
-          Pārvākšanās, mēbeļu piegāde, krāvēji un atkritumu izvešana.
-          Aprakstiet darbu WhatsApp — mēs ātri nosauksim cenu un laiku.
-        </p>
+        <p class="lead" data-t="heroLead">Pārvākšanās, mēbeļu piegāde, krāvēji un atkritumu izvešana. Aprakstiet darbu WhatsApp — mēs ātri nosauksim cenu un laiku.</p>
 
         <div class="cta-row">
           <a class="btn btn-primary js-whatsapp" href="#" data-t="ctaWhatsapp">💬 Aprēķināt WhatsApp</a>
           <a class="btn btn-secondary js-phone-link" href="tel:+37128870200" data-t="ctaCall">📞 Zvanīt tagad</a>
           <a class="btn btn-secondary" href="#order" data-t="ctaForm">📝 Atstāt pieteikumu</a>
         </div>
-
         <p class="hero-note" data-t="heroNote">Bez slēptām piemaksām: cenu saskaņojam pirms izbraukšanas.</p>
 
         <div class="stats">
@@ -690,7 +874,7 @@
           </div>
           <div class="stat">
             <strong data-t="stat2Strong">60 min</strong>
-            <span data-t="stat2Text">steidzamam izsaukumam</span>
+            <span data-t="stat2Text">steidzamiem izsaukumiem</span>
           </div>
           <div class="stat">
             <strong data-t="stat3Strong">katru dienu</strong>
@@ -699,67 +883,65 @@
         </div>
       </div>
 
-      <aside class="card calculator">
+      <aside class="calc-card" aria-label="Price calculator">
         <h2 data-t="calcTitle">Ātrais cenas aprēķins</h2>
         <p data-t="calcLead">Izvēlieties pakalpojumu — saņemsiet aptuvenu starta cenu un gatavu WhatsApp ziņu.</p>
 
-        <label>
-          <span data-t="calcService">Pakalpojums</span>
-          <select id="calcService">
-            <option value="move" data-lv="Pārvākšanās pa pilsētu" data-ru="Переезд по городу">Pārvākšanās pa pilsētu</option>
-            <option value="waste" data-lv="Atkritumu izvešana" data-ru="Вывоз мусора">Atkritumu izvešana</option>
-            <option value="package" data-lv="Pārvākšanās + izvešana" data-ru="Переезд + вывоз">Pārvākšanās + izvešana</option>
-            <option value="outcity" data-lv="Ārpus Daugavpils" data-ru="За пределы Даугавпилса">Ārpus Daugavpils</option>
-          </select>
-        </label>
+        <div class="form-grid">
+          <div class="field-full">
+            <label for="calcService" data-t="calcService">Pakalpojums</label>
+            <select id="calcService">
+              <option value="move" data-lv="Pārvākšanās pa pilsētu" data-ru="Переезд по городу">Pārvākšanās pa pilsētu</option>
+              <option value="waste" data-lv="Atkritumu izvešana" data-ru="Вывоз мусора">Atkritumu izvešana</option>
+              <option value="package" data-lv="Pārvākšanās + izvešana" data-ru="Переезд + вывоз мусора">Pārvākšanās + izvešana</option>
+              <option value="outcity" data-lv="Ārpus Daugavpils" data-ru="За пределы Даугавпилса">Ārpus Daugavpils</option>
+            </select>
+          </div>
 
-        <div class="form-row" style="margin-top: 12px;">
-          <label>
-            <span data-t="calcSize">Apjoms</span>
+          <div>
+            <label for="calcSize" data-t="calcSize">Apjoms</label>
             <select id="calcSize">
-              <option value="1" data-lv="Mazs darbs" data-ru="Маленький заказ">Mazs darbs</option>
-              <option value="2" data-lv="Vidējs darbs" data-ru="Средний заказ">Vidējs darbs</option>
-              <option value="3" data-lv="Liels darbs" data-ru="Большой заказ">Liels darbs</option>
+              <option value="small" data-lv="Mazs darbs" data-ru="Маленький заказ">Mazs darbs</option>
+              <option value="medium" data-lv="Vidējs darbs" data-ru="Средний заказ">Vidējs darbs</option>
+              <option value="large" data-lv="Liels darbs" data-ru="Большой заказ">Liels darbs</option>
             </select>
-          </label>
+          </div>
 
-          <label>
-            <span data-t="calcUrgency">Termiņš</span>
+          <div>
+            <label for="calcUrgency" data-t="calcUrgency">Termiņš</label>
             <select id="calcUrgency">
-              <option value="0" data-lv="Šodien / rīt" data-ru="Сегодня / завтра">Šodien / rīt</option>
-              <option value="15" data-lv="Steidzami 60 min" data-ru="Срочно 60 мин">Steidzami 60 min</option>
+              <option value="normal" data-lv="Šodien / rīt" data-ru="Сегодня / завтра">Šodien / rīt</option>
+              <option value="urgent" data-lv="Steidzami 60 min" data-ru="Срочно 60 мин">Steidzami 60 min</option>
             </select>
-          </label>
+          </div>
         </div>
 
-        <div class="quote">
+        <div class="result">
           <small data-t="calcFrom">Aptuveni no</small>
-          <div class="quote-price"><span id="quotePrice">40</span> €</div>
-          <small data-t="calcNote">Precīzu cenu apstiprinām pēc adresēm, stāviem un kravas apjoma.</small>
+          <strong id="calcPrice">40 €</strong>
+          <p data-t="calcNote">Precīzu cenu apstiprinām pēc adresēm, stāviem un kravas apjoma.</p>
         </div>
 
-        <a id="calcWhatsapp" class="btn btn-primary" style="width: 100%; margin-top: 14px;" href="#" data-t="calcButton">
-          Nosūtīt aprēķinu WhatsApp
-        </a>
+        <a id="calcWhatsapp" class="btn btn-primary" style="width: 100%; margin-top: 14px;" href="#" data-t="calcButton">Nosūtīt aprēķinu WhatsApp</a>
       </aside>
     </div>
-  </header>
+  </section>
 
   <main>
     <section id="prices">
       <div class="container">
         <div class="section-title">
           <h2 data-t="pricesTitle">Populārākie pakalpojumi un starta cenas</h2>
-          <p data-t="pricesLead">Cenas ir skaidras jau sākumā. Ja darbs ir nestandarta, pirms izbraukšanas vienosimies par galīgo summu.</p>
+          <p data-t="pricesLead">Cenas ir skaidras jau sākumā. Ja darbs nav standarta, pirms izbraukšanas vienosimies par galīgo summu.</p>
         </div>
 
-        <div class="grid-3">
+        <div class="services-grid">
           <article class="card service">
             <div class="service-head">
               <h3 data-t="s1Title">🚚 Pārvākšanās pa pilsētu</h3>
               <div class="price">40 €</div>
             </div>
-            <p data-t="s1Text">Pirmā stunda + viens krāvējs iekļauts. Dzīvokļi, mēbeles, sadzīves tehnika.</p>
+            <p data-t="s1Text">Pirmajā stundā iekļauts transports un viens krāvējs. Piemērots dzīvokļiem, mēbelēm un sadzīves tehnikai.</p>
             <span class="pill" data-t="s1Pill">Labs mazam vai vidējam pārbraucienam</span>
           </article>
 
@@ -769,7 +951,7 @@
               <div class="price">30 €/m³</div>
             </div>
             <p data-t="s2Text">Remonta un sadzīves atkritumi, vecas mēbeles, maisi. Utilizācija iekļauta cenā.</p>
-            <span class="pill" data-t="s2Pill">Bez pašam jāved uz poligonu</span>
+            <span class="pill" data-t="s2Pill">Nav pašam jāved uz poligonu</span>
           </article>
 
           <article class="card service">
@@ -777,7 +959,7 @@
               <h3 data-t="s3Title">📦 Pārvākšanās + izvešana</h3>
               <div class="price">120 €</div>
             </div>
-            <p data-t="s3Text">3 stundas darba + līdz 3 m³ atkritumu. Ērti, ja jāatbrīvo dzīvoklis.</p>
+            <p data-t="s3Text">Cenā iekļautas līdz 3 darba stundām un līdz 3 m³ atkritumu izvešanai. Ērts risinājums dzīvokļa atbrīvošanai.</p>
             <span class="pill" data-t="s3Pill">Izdevīgākais komplekts</span>
           </article>
 
@@ -795,7 +977,7 @@
               <h3 data-t="s5Title">⚡ Steidzams izsaukums</h3>
               <div class="price">+15 €</div>
             </div>
-            <p data-t="s5Text">Ja transports vajadzīgs pēc iespējas ātrāk, prioritāri sameklējam tuvāko laiku.</p>
+            <p data-t="s5Text">Ja transports vajadzīgs pēc iespējas ātrāk, prioritāri sameklējam tuvāko pieejamo laiku.</p>
             <span class="pill" data-t="s5Pill">Iespējama izbraukšana 60 min laikā</span>
           </article>
 
@@ -820,32 +1002,31 @@
           </div>
 
           <div class="steps">
-            <div class="step">
+            <div class="step" data-step="1">
               <h3 data-t="step1Title">Nosūtiet adreses un foto</h3>
-              <p data-t="step1Text">WhatsApp vai formā: ko vest, no kurienes, uz kurieni, stāvi un vēlamais laiks.</p>
+              <p data-t="step1Text">Norādiet, kas jāved, no kurienes uz kurieni, stāvu skaitu un vēlamo laiku.</p>
             </div>
 
-            <div class="step">
+            <div class="step" data-step="2">
               <h3 data-t="step2Title">Saņemiet cenu</h3>
               <p data-t="step2Text">Mēs apstiprinām cenu pirms izbraukšanas, lai nebūtu nepatīkamu pārsteigumu.</p>
             </div>
 
-            <div class="step">
+            <div class="step" data-step="3">
               <h3 data-t="step3Title">Mēs atbraucam un izdaram</h3>
-              <p data-t="step3Text">Buss, krāvēji un atkritumu utilizācija — pēc izvēlētā pakalpojuma.</p>
+              <p data-t="step3Text">Transports, krāvēji un atkritumu utilizācija — pēc izvēlētā pakalpojuma.</p>
             </div>
           </div>
         </div>
 
         <div class="card service">
           <h2 style="color: var(--green); margin-bottom: 14px;" data-t="whyTitle">Kāpēc izvēlēties A2B</h2>
-
           <div class="features">
             <div class="feature"><span>✓</span><p data-t="why1">Fiksēta cena pirms darba sākuma.</p></div>
             <div class="feature"><span>✓</span><p data-t="why2">Var nosūtīt foto kravai — mazāk kļūdu aprēķinā.</p></div>
             <div class="feature"><span>✓</span><p data-t="why3">Telefons un WhatsApp vienmēr redzami mobilajā versijā.</p></div>
             <div class="feature"><span>✓</span><p data-t="why4">Pieteikums uzreiz nonāk operatoram.</p></div>
-            <div class="feature"><span>✓</span><p data-t="why5">LV/RU valodas pārslēgs klientiem Daugavpilī.</p></div>
+            <div class="feature"><span>✓</span><p data-t="why5">LV/RU valodu izvēle klientiem Daugavpilī.</p></div>
           </div>
         </div>
       </div>
@@ -856,10 +1037,9 @@
         <aside class="order-side">
           <h2 data-t="formSideTitle">Atstājiet pieteikumu — sazināsimies tuvākajā laikā</h2>
           <p data-t="formSideText">Ātrākais variants ir WhatsApp ar adresēm un foto. Formu izmantojiet, ja ērtāk gaidīt zvanu.</p>
-
           <div class="contact-line">💬 <a class="js-whatsapp" href="#" data-t="formWhatsapp">Rakstīt WhatsApp</a></div>
           <div class="contact-line">📞 <a class="js-phone-link js-phone-text" href="tel:+37128870200">+371 28870200</a></div>
-          <div class="contact-line">🕐 <span data-t="hours">Katru dienu 07:00-22:00</span></div>
+          <div class="contact-line">🕘 <span data-t="hours">Katru dienu 07:00-22:00</span></div>
         </aside>
 
         <div class="card form-card">
@@ -871,10 +1051,9 @@
                 <span data-t="labelName">Vārds *</span>
                 <input type="text" id="name" required autocomplete="name" data-ph="phName" placeholder="Jūsu vārds" />
               </label>
-
               <label>
                 <span data-t="labelPhone">Telefons *</span>
-                <input type="tel" id="phone" required autocomplete="tel" inputmode="tel" data-ph="phPhone" placeholder="+37128870200" />
+                <input type="tel" id="phone" required autocomplete="tel" inputmode="tel" data-ph="phPhone" placeholder="+371 28870200" />
               </label>
             </div>
 
@@ -890,7 +1069,6 @@
                   <option value="urgent" data-lv="Steidzams izsaukums" data-ru="Срочный вызов">Steidzams izsaukums</option>
                 </select>
               </label>
-
               <label>
                 <span data-t="labelDate">Kad vajag?</span>
                 <input type="text" id="date" data-ph="phDate" placeholder="Piemēram: šodien 18:00" />
@@ -914,7 +1092,6 @@
 
             <button class="btn btn-primary" type="submit" style="width: 100%;" data-t="submit">📨 Nosūtīt pieteikumu</button>
           </form>
-
           <div id="success" class="success" data-t="success">✅ Paldies! Pieteikums nosūtīts. Sazināsimies tuvākajā laikā.</div>
           <div id="error" class="error" data-t="error">❌ Neizdevās nosūtīt. Lūdzu, zvaniet vai rakstiet WhatsApp.</div>
         </div>
@@ -928,16 +1105,14 @@
         <strong>A2B Transport</strong>
         <p data-t="footerDesc">Kravas pārvadājumi, pārvākšanās un atkritumu izvešana Daugavpilī un Latgalē.</p>
       </div>
-
       <div>
         <strong data-t="footerContacts">Kontakti</strong>
-        <p><a class="js-phone-link js-phone-text" href="tel:+37128870200">+37128870200</a></p>
+        <p><a class="js-phone-link js-phone-text" href="tel:+37128870200">+371 28870200</a></p>
         <p><a id="emailLink" href="mailto:info@a2btransport.lv">info@a2btransport.lv</a></p>
         <p><a class="js-whatsapp" href="#">WhatsApp</a></p>
       </div>
-
       <div>
-        <strong data-t="footerArea">Zona un darba laiks</strong>
+        <strong data-t="footerArea">Darba zona un laiks</strong>
         <p>Daugavpils, Latgale</p>
         <p data-t="footerHours">07:00-22:00, katru dienu</p>
         <p style="margin-top: 12px;">© 2026 A2B Transport</p>
@@ -945,14 +1120,14 @@
     </div>
   </footer>
 
-  <div class="sticky-mobile">
+  <div class="sticky-mobile" aria-label="Quick contact buttons">
     <a class="btn btn-primary js-whatsapp" href="#" data-t="stickyWhatsapp">WhatsApp</a>
     <a class="btn btn-secondary js-phone-link" href="tel:+37128870200" data-t="stickyCall">Zvanīt</a>
   </div>
 
   <script>
     const CONFIG = {
-      phoneDisplay: '+37128870200',
+      phoneDisplay: '+371 28870200',
       phoneTel: '+37128870200',
       whatsappNumber: '37128870200',
       email: 'info@a2btransport.lv',
@@ -971,10 +1146,9 @@
         stat1Strong: 'no 40 €',
         stat1Text: 'pārvākšanās pa pilsētu',
         stat2Strong: '60 min',
-        stat2Text: 'steidzamam izsaukumam',
+        stat2Text: 'steidzamiem izsaukumiem',
         stat3Strong: 'katru dienu',
         stat3Text: 'arī brīvdienās',
-
         calcTitle: 'Ātrais cenas aprēķins',
         calcLead: 'Izvēlieties pakalpojumu — saņemsiet aptuvenu starta cenu un gatavu WhatsApp ziņu.',
         calcService: 'Pakalpojums',
@@ -983,85 +1157,67 @@
         calcFrom: 'Aptuveni no',
         calcNote: 'Precīzu cenu apstiprinām pēc adresēm, stāviem un kravas apjoma.',
         calcButton: 'Nosūtīt aprēķinu WhatsApp',
-
         pricesTitle: 'Populārākie pakalpojumi un starta cenas',
-        pricesLead: 'Cenas ir skaidras jau sākumā. Ja darbs ir nestandarta, pirms izbraukšanas vienosimies par galīgo summu.',
-
+        pricesLead: 'Cenas ir skaidras jau sākumā. Ja darbs nav standarta, pirms izbraukšanas vienosimies par galīgo summu.',
         s1Title: '🚚 Pārvākšanās pa pilsētu',
-        s1Text: 'Pirmā stunda + viens krāvējs iekļauts. Dzīvokļi, mēbeles, sadzīves tehnika.',
+        s1Text: 'Pirmajā stundā iekļauts transports un viens krāvējs. Piemērots dzīvokļiem, mēbelēm un sadzīves tehnikai.',
         s1Pill: 'Labs mazam vai vidējam pārbraucienam',
-
         s2Title: '🗑️ Atkritumu izvešana',
         s2Text: 'Remonta un sadzīves atkritumi, vecas mēbeles, maisi. Utilizācija iekļauta cenā.',
-        s2Pill: 'Bez pašam jāved uz poligonu',
-
+        s2Pill: 'Nav pašam jāved uz poligonu',
         s3Title: '📦 Pārvākšanās + izvešana',
-        s3Text: '3 stundas darba + līdz 3 m³ atkritumu. Ērti, ja jāatbrīvo dzīvoklis.',
+        s3Text: 'Cenā iekļautas līdz 3 darba stundām un līdz 3 m³ atkritumu izvešanai. Ērts risinājums dzīvokļa atbrīvošanai.',
         s3Pill: 'Izdevīgākais komplekts',
-
         s4Title: '🛣️ Ārpus pilsētas',
         s4Text: 'Latgale un visa Latvija. Minimālā izbraukuma cena ārpus pilsētas — 60 €.',
         s4Pill: 'Cena par maršrutu turp un atpakaļ',
-
         s5Title: '⚡ Steidzams izsaukums',
-        s5Text: 'Ja transports vajadzīgs pēc iespējas ātrāk, prioritāri sameklējam tuvāko laiku.',
+        s5Text: 'Ja transports vajadzīgs pēc iespējas ātrāk, prioritāri sameklējam tuvāko pieejamo laiku.',
         s5Pill: 'Iespējama izbraukšana 60 min laikā',
-
         s6Title: '🔧 Nestandarta darbs',
         s6Price: 'pēc vienošanās',
         s6Text: 'Smagas lietas, vairāki punkti, demontāža, piegāde no veikala vai noliktavas.',
         s6Pill: 'Atsūtiet foto WhatsApp',
-
         howTitle: 'Kā notiek pasūtījums',
         howLead: 'Mērķis — ātri saprast darbu, nosaukt cenu un ierasties bez liekas sarakstes.',
         step1Title: 'Nosūtiet adreses un foto',
-        step1Text: 'WhatsApp vai formā: ko vest, no kurienes, uz kurieni, stāvi un vēlamais laiks.',
+        step1Text: 'Norādiet, kas jāved, no kurienes uz kurieni, stāvu skaitu un vēlamo laiku.',
         step2Title: 'Saņemiet cenu',
         step2Text: 'Mēs apstiprinām cenu pirms izbraukšanas, lai nebūtu nepatīkamu pārsteigumu.',
         step3Title: 'Mēs atbraucam un izdaram',
-        step3Text: 'Buss, krāvēji un atkritumu utilizācija — pēc izvēlētā pakalpojuma.',
-
+        step3Text: 'Transports, krāvēji un atkritumu utilizācija — pēc izvēlētā pakalpojuma.',
         whyTitle: 'Kāpēc izvēlēties A2B',
         why1: 'Fiksēta cena pirms darba sākuma.',
         why2: 'Var nosūtīt foto kravai — mazāk kļūdu aprēķinā.',
         why3: 'Telefons un WhatsApp vienmēr redzami mobilajā versijā.',
         why4: 'Pieteikums uzreiz nonāk operatoram.',
-        why5: 'LV/RU valodas pārslēgs klientiem Daugavpilī.',
-
+        why5: 'LV/RU valodu izvēle klientiem Daugavpilī.',
         formSideTitle: 'Atstājiet pieteikumu — sazināsimies tuvākajā laikā',
         formSideText: 'Ātrākais variants ir WhatsApp ar adresēm un foto. Formu izmantojiet, ja ērtāk gaidīt zvanu.',
         formWhatsapp: 'Rakstīt WhatsApp',
         hours: 'Katru dienu 07:00-22:00',
-
         labelName: 'Vārds *',
         labelPhone: 'Telefons *',
         labelService: 'Pakalpojums *',
         labelDate: 'Kad vajag?',
         labelAddress: 'Adrese / maršruts',
         labelDetails: 'Detaļas',
-        consent: 'Piekrītu, ka A2B Transport sazinās ar mani par šo pieteikumu.',
-        submit: '📨 Nosūtīt pieteikumu',
-
         phName: 'Jūsu vārds',
         phPhone: '+371 28870200',
         phDate: 'Piemēram: šodien 18:00',
         phAddress: 'No kurienes uz kurieni',
         phDetails: 'Kas jāpārvieto, stāvi, lifts, krāvēji, foto var nosūtīt WhatsApp',
-
+        consent: 'Piekrītu, ka A2B Transport sazinās ar mani par šo pieteikumu.',
+        submit: '📨 Nosūtīt pieteikumu',
         success: '✅ Paldies! Pieteikums nosūtīts. Sazināsimies tuvākajā laikā.',
         error: '❌ Neizdevās nosūtīt. Lūdzu, zvaniet vai rakstiet WhatsApp.',
-
         footerDesc: 'Kravas pārvadājumi, pārvākšanās un atkritumu izvešana Daugavpilī un Latgalē.',
         footerContacts: 'Kontakti',
-        footerArea: 'Zona un darba laiks',
+        footerArea: 'Darba zona un laiks',
         footerHours: '07:00-22:00, katru dienu',
         stickyWhatsapp: 'WhatsApp',
-        stickyCall: 'Zvanīt',
-
-        whatsappBase: 'Labdien! Vēlos pasūtīt kravas pārvadājumu Daugavpilī.',
-        calcWhatsapp: 'Labdien! Vēlos precizēt cenu. Pakalpojums: {service}. Aptuvenā cena no {price} €.'
+        stickyCall: 'Zvanīt'
       },
-
       ru: {
         heroBadge: '📍 Даугавпилс и Латгалия · 07:00-22:00',
         heroTitle: 'Грузоперевозки в Даугавпилсе сегодня — цена до начала работы',
@@ -1073,10 +1229,9 @@
         stat1Strong: 'от 40 €',
         stat1Text: 'переезд по городу',
         stat2Strong: '60 мин',
-        stat2Text: 'для срочного вызова',
+        stat2Text: 'для срочных вызовов',
         stat3Strong: 'каждый день',
         stat3Text: 'включая выходные',
-
         calcTitle: 'Быстрый расчёт цены',
         calcLead: 'Выберите услугу — получите ориентировочную стартовую цену и готовое сообщение в WhatsApp.',
         calcService: 'Услуга',
@@ -1085,177 +1240,172 @@
         calcFrom: 'Ориентировочно от',
         calcNote: 'Точную цену подтверждаем после адресов, этажей и объёма груза.',
         calcButton: 'Отправить расчёт в WhatsApp',
-
         pricesTitle: 'Популярные услуги и стартовые цены',
-        pricesLead: 'Цены понятны заранее. Если задача нестандартная, финальную сумму согласуем до выезда.',
-
+        pricesLead: 'Цены понятны заранее. Если работа нестандартная, перед выездом согласуем итоговую сумму.',
         s1Title: '🚚 Переезд по городу',
-        s1Text: 'Первый час + один грузчик включены. Квартиры, мебель, бытовая техника.',
-        s1Pill: 'Для малого и среднего переезда',
-
+        s1Text: 'В первый час включены транспорт и один грузчик. Подходит для квартир, мебели и бытовой техники.',
+        s1Pill: 'Для малого или среднего переезда',
         s2Title: '🗑️ Вывоз мусора',
-        s2Text: 'Ремонтный и бытовой мусор, старая мебель, мешки. Утилизация включена в цену.',
+        s2Text: 'Строительный и бытовой мусор, старая мебель, мешки. Утилизация включена в цену.',
         s2Pill: 'Не нужно самому ехать на полигон',
-
-        s3Title: '📦 Переезд + вывоз',
-        s3Text: '3 часа работы + до 3 м³ мусора. Удобно, если нужно освободить квартиру.',
+        s3Title: '📦 Переезд + вывоз мусора',
+        s3Text: 'В цену включено до 3 часов работы и вывоз до 3 м³ мусора. Удобное решение для освобождения квартиры.',
         s3Pill: 'Самый выгодный комплект',
-
         s4Title: '🛣️ За пределы города',
-        s4Text: 'Латгалия и вся Латвия. Минимальный выезд за город — 60 €.',
-        s4Pill: 'Маршрут туда и обратно',
-
+        s4Text: 'Латгалия и вся Латвия. Минимальная цена выезда за город — 60 €.',
+        s4Pill: 'Цена за маршрут туда и обратно',
         s5Title: '⚡ Срочный вызов',
-        s5Text: 'Если транспорт нужен как можно быстрее, приоритетно ищем ближайшее время.',
-        s5Pill: 'Возможен выезд за 60 минут',
-
-        s6Title: '🔧 Нестандартная задача',
+        s5Text: 'Если транспорт нужен как можно быстрее, приоритетно ищем ближайшее доступное время.',
+        s5Pill: 'Возможен выезд в течение 60 минут',
+        s6Title: '🔧 Нестандартная работа',
         s6Price: 'по договорённости',
-        s6Text: 'Тяжёлые предметы, несколько точек, демонтаж, доставка из магазина или склада.',
+        s6Text: 'Тяжёлые вещи, несколько точек, демонтаж, доставка из магазина или со склада.',
         s6Pill: 'Пришлите фото в WhatsApp',
-
         howTitle: 'Как проходит заказ',
         howLead: 'Цель — быстро понять задачу, назвать цену и приехать без лишней переписки.',
         step1Title: 'Отправьте адреса и фото',
-        step1Text: 'В WhatsApp или форме: что везти, откуда, куда, этажи и желаемое время.',
+        step1Text: 'Укажите, что нужно перевезти, откуда и куда, этажи и желаемое время.',
         step2Title: 'Получите цену',
         step2Text: 'Мы подтверждаем цену до выезда, чтобы не было неприятных сюрпризов.',
-        step3Title: 'Мы приезжаем и делаем работу',
-        step3Text: 'Бус, грузчики и утилизация мусора — по выбранной услуге.',
-
+        step3Title: 'Мы приезжаем и выполняем работу',
+        step3Text: 'Транспорт, грузчики и утилизация мусора — в зависимости от выбранной услуги.',
         whyTitle: 'Почему выбирают A2B',
         why1: 'Фиксированная цена до начала работы.',
         why2: 'Можно отправить фото груза — меньше ошибок в расчёте.',
-        why3: 'Телефон и WhatsApp всегда видны на мобильной версии.',
-        why4: 'Заявка сразу попадает оператору.',
-        why5: 'Переключатель LV/RU для клиентов Даугавпилса.',
-
+        why3: 'Телефон и WhatsApp всегда видны в мобильной версии.',
+        why4: 'Заявка сразу приходит оператору.',
+        why5: 'Выбор LV/RU для клиентов в Даугавпилсе.',
         formSideTitle: 'Оставьте заявку — свяжемся в ближайшее время',
         formSideText: 'Самый быстрый вариант — WhatsApp с адресами и фото. Форму используйте, если удобнее ждать звонка.',
         formWhatsapp: 'Написать в WhatsApp',
         hours: 'Каждый день 07:00-22:00',
-
         labelName: 'Имя *',
         labelPhone: 'Телефон *',
         labelService: 'Услуга *',
         labelDate: 'Когда нужно?',
         labelAddress: 'Адрес / маршрут',
         labelDetails: 'Детали',
-        consent: 'Согласен, что A2B Transport свяжется со мной по этой заявке.',
-        submit: '📨 Отправить заявку',
-
         phName: 'Ваше имя',
         phPhone: '+371 28870200',
         phDate: 'Например: сегодня 18:00',
         phAddress: 'Откуда и куда',
         phDetails: 'Что перевезти, этажи, лифт, грузчики, фото можно отправить в WhatsApp',
-
-        success: '✅ Спасибо! Заявка отправлена. Свяжемся в ближайшее время.',
+        consent: 'Согласен, что A2B Transport свяжется со мной по этой заявке.',
+        submit: '📨 Отправить заявку',
+        success: '✅ Спасибо! Заявка отправлена. Скоро свяжемся.',
         error: '❌ Не удалось отправить. Пожалуйста, позвоните или напишите в WhatsApp.',
-
         footerDesc: 'Грузоперевозки, переезды и вывоз мусора в Даугавпилсе и Латгалии.',
         footerContacts: 'Контакты',
-        footerArea: 'Зона и рабочее время',
+        footerArea: 'Зона работы и время',
         footerHours: '07:00-22:00, каждый день',
         stickyWhatsapp: 'WhatsApp',
-        stickyCall: 'Звонок',
-
-        whatsappBase: 'Здравствуйте! Хочу заказать грузоперевозку в Даугавпилсе.',
-        calcWhatsapp: 'Здравствуйте! Хочу уточнить цену. Услуга: {service}. Ориентировочная цена от {price} €.'
+        stickyCall: 'Звонить'
       }
     };
 
-    let lang = localStorage.getItem('a2b_lang') || 'lv';
+    const PRICE_TABLE = {
+      move: 40,
+      waste: 30,
+      package: 120,
+      outcity: 60
+    };
 
-    function t(key) {
-      return TEXT[lang][key] || TEXT.lv[key] || key;
+    let currentLang = localStorage.getItem('a2b_lang') || 'lv';
+
+    function getServiceLabel(value) {
+      const select = document.getElementById('calcService');
+      const option = select.querySelector(`option[value="${value}"]`);
+      return option ? option.textContent.trim() : value;
     }
 
-    function whatsappLink(message) {
-      return 'https://wa.me/' + CONFIG.whatsappNumber + '?text=' + encodeURIComponent(message);
+    function makeWhatsAppUrl(message) {
+      return `https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(message)}`;
     }
 
-    function updateContacts() {
-      document.querySelectorAll('.js-phone-link').forEach((link) => {
-        link.href = 'tel:' + CONFIG.phoneTel;
+    function baseWhatsAppMessage() {
+      return currentLang === 'ru'
+        ? 'Здравствуйте! Хочу узнать цену на перевозку. Адреса/детали: '
+        : 'Labdien! Vēlos uzzināt pārvadājuma cenu. Adreses/detaļas: ';
+    }
+
+    function updateWhatsappLinks() {
+      document.querySelectorAll('.js-whatsapp').forEach((link) => {
+        link.href = makeWhatsAppUrl(baseWhatsAppMessage());
+        link.target = '_blank';
+        link.rel = 'noopener';
       });
+    }
 
+    function updateContactLinks() {
+      document.querySelectorAll('.js-phone-link').forEach((link) => {
+        link.href = `tel:${CONFIG.phoneTel}`;
+      });
       document.querySelectorAll('.js-phone-text').forEach((el) => {
         el.textContent = CONFIG.phoneDisplay;
       });
-
       const emailLink = document.getElementById('emailLink');
       if (emailLink) {
-        emailLink.href = 'mailto:' + CONFIG.email;
+        emailLink.href = `mailto:${CONFIG.email}`;
         emailLink.textContent = CONFIG.email;
       }
     }
 
-    function selectedText(id) {
-      const select = document.getElementById(id);
-      return select.options[select.selectedIndex]?.textContent || '';
-    }
-
-    function updateQuote() {
+    function updateCalculator() {
       const service = document.getElementById('calcService').value;
-      const size = Number(document.getElementById('calcSize').value || 1);
-      const urgency = Number(document.getElementById('calcUrgency').value || 0);
+      const size = document.getElementById('calcSize').value;
+      const urgency = document.getElementById('calcUrgency').value;
 
-      const basePrices = {
-        move: 40,
-        waste: 30,
-        package: 120,
-        outcity: 60
-      };
+      let price = PRICE_TABLE[service] || 40;
+      if (size === 'medium') price += 20;
+      if (size === 'large') price += 50;
+      if (urgency === 'urgent') price += 15;
 
-      const base = basePrices[service] || 40;
-      const sizeExtra = service === 'package' ? 0 : (size - 1) * (service === 'waste' ? 30 : 25);
-      const price = base + sizeExtra + urgency;
+      const priceText = service === 'waste' ? `${price} €/m³` : `${price} €`;
+      document.getElementById('calcPrice').textContent = priceText;
 
-      document.getElementById('quotePrice').textContent = price;
+      const message = currentLang === 'ru'
+        ? `Здравствуйте! Хочу рассчитать заказ. Услуга: ${getServiceLabel(service)}. Объём: ${document.getElementById('calcSize').selectedOptions[0].textContent}. Срок: ${document.getElementById('calcUrgency').selectedOptions[0].textContent}. Ориентир: от ${priceText}. Адреса/детали: `
+        : `Labdien! Vēlos aprēķināt pasūtījumu. Pakalpojums: ${getServiceLabel(service)}. Apjoms: ${document.getElementById('calcSize').selectedOptions[0].textContent}. Termiņš: ${document.getElementById('calcUrgency').selectedOptions[0].textContent}. Aptuveni no ${priceText}. Adreses/detaļas: `;
 
-      const message = t('calcWhatsapp')
-        .replace('{service}', selectedText('calcService'))
-        .replace('{price}', price);
-
-      document.getElementById('calcWhatsapp').href = whatsappLink(message);
+      const calcWhatsapp = document.getElementById('calcWhatsapp');
+      calcWhatsapp.href = makeWhatsAppUrl(message);
+      calcWhatsapp.target = '_blank';
+      calcWhatsapp.rel = 'noopener';
     }
 
-    function setLang(newLang) {
-      lang = newLang;
+    function translate(lang) {
+      currentLang = lang;
       localStorage.setItem('a2b_lang', lang);
       document.documentElement.lang = lang;
 
       document.querySelectorAll('[data-t]').forEach((el) => {
-        el.textContent = t(el.dataset.t);
+        const key = el.getAttribute('data-t');
+        if (TEXT[lang][key]) el.textContent = TEXT[lang][key];
       });
 
       document.querySelectorAll('[data-ph]').forEach((el) => {
-        el.placeholder = t(el.dataset.ph);
+        const key = el.getAttribute('data-ph');
+        if (TEXT[lang][key]) el.placeholder = TEXT[lang][key];
       });
 
-      document.querySelectorAll('[data-lang-btn]').forEach((btn) => {
-        btn.classList.toggle('active', btn.dataset.langBtn === lang);
+      document.querySelectorAll('option[data-lv][data-ru]').forEach((option) => {
+        option.textContent = option.dataset[lang];
       });
 
-      document.querySelectorAll('option[data-lv]').forEach((option) => {
-        option.textContent = option.dataset[lang] || option.dataset.lv;
+      document.querySelectorAll('.lang button').forEach((button) => {
+        button.classList.toggle('active', button.dataset.lang === lang);
       });
 
-      document.querySelectorAll('.js-whatsapp').forEach((link) => {
-        link.href = whatsappLink(t('whatsappBase'));
-      });
-
-      updateContacts();
-      updateQuote();
+      updateWhatsappLinks();
+      updateCalculator();
     }
 
-    document.querySelectorAll('[data-lang-btn]').forEach((btn) => {
-      btn.addEventListener('click', () => setLang(btn.dataset.langBtn));
+    document.querySelectorAll('.lang button').forEach((button) => {
+      button.addEventListener('click', () => translate(button.dataset.lang));
     });
 
     ['calcService', 'calcSize', 'calcUrgency'].forEach((id) => {
-      document.getElementById(id).addEventListener('change', updateQuote);
+      document.getElementById(id).addEventListener('change', updateCalculator);
     });
 
     document.getElementById('orderForm').addEventListener('submit', async (event) => {
@@ -1264,59 +1414,46 @@
       const form = event.currentTarget;
       const success = document.getElementById('success');
       const error = document.getElementById('error');
-      const button = form.querySelector('button[type="submit"]');
-
       success.style.display = 'none';
       error.style.display = 'none';
+
+      if (document.getElementById('company').value) return;
 
       if (!form.checkValidity()) {
         form.reportValidity();
         return;
       }
 
+      const serviceSelect = document.getElementById('service');
       const payload = {
-        lang,
         name: document.getElementById('name').value.trim(),
         phone: document.getElementById('phone').value.trim(),
-        service: selectedText('service'),
+        service: serviceSelect.selectedOptions[0].textContent.trim(),
         date: document.getElementById('date').value.trim(),
         address: document.getElementById('address').value.trim(),
         details: document.getElementById('details').value.trim(),
-        company: document.getElementById('company').value.trim(),
+        lang: currentLang,
         page: window.location.href
       };
-
-      button.disabled = true;
-      button.style.opacity = '0.7';
 
       try {
         const response = await fetch(CONFIG.apiEndpoint, {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)
         });
 
-        const result = await response.json();
+        if (!response.ok) throw new Error('Request failed');
 
-        if (!response.ok || !result.ok) {
-          throw new Error(result.error || 'Request failed');
-        }
-
-        form.reset();
         success.style.display = 'block';
-        updateQuote();
+        form.reset();
       } catch (err) {
-        console.error(err);
         error.style.display = 'block';
-      } finally {
-        button.disabled = false;
-        button.style.opacity = '1';
       }
     });
 
-    setLang(lang);
+    updateContactLinks();
+    translate(currentLang);
   </script>
 </body>
 </html>
