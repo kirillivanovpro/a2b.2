@@ -3,26 +3,24 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>A2B Transport — Kravas pārvadājumi Daugavpilī</title>
-  <meta name="description" content="Kravas pārvadājumi, pārvākšanās un atkritumu izvešana Daugavpilī un Latgalē. Fiksētas cenas, WhatsApp pieteikums un ātrs izbraukums." />
+  <title>A2B Express — Kravas pārvadājumi Daugavpilī</title>
+  <meta name="description" content="Kravas pārvadājumi, pārvākšanās un atkritumu izvešana Daugavpilī un Latgalē. Ātra cena WhatsApp un darbs katru dienu." />
   <meta name="robots" content="index,follow" />
-  <meta name="theme-color" content="#0f3f22" />
+  <meta name="theme-color" content="#071a33" />
 
   <style>
     :root {
-      --green: #0f3f22;
-      --green-2: #176238;
-      --green-dark: #072713;
-      --orange: #ff6b35;
-      --orange-dark: #e95a24;
-      --text: #172019;
-      --muted: #66736a;
-      --bg: #f4f7f2;
+      --navy: #071a33;
+      --navy-2: #0b274a;
+      --orange: #ff6b00;
+      --orange-2: #ff8a1f;
+      --bg: #f5f7fb;
+      --text: #101828;
+      --muted: #667085;
+      --line: rgba(7, 26, 51, 0.12);
       --white: #ffffff;
-      --line: #dfe7df;
-      --soft: #eaf7ed;
-      --shadow: 0 18px 45px rgba(15, 63, 34, 0.14);
-      --radius: 22px;
+      --shadow: 0 24px 70px rgba(7, 26, 51, 0.14);
+      --radius: 24px;
       --bottom-bar: 88px;
     }
 
@@ -39,7 +37,9 @@
 
     body {
       font-family: Arial, Helvetica, sans-serif;
-      background: var(--bg);
+      background:
+        radial-gradient(circle at 82% 0%, rgba(255, 107, 0, 0.12), transparent 28%),
+        linear-gradient(180deg, #ffffff 0%, #f5f7fb 100%);
       color: var(--text);
       line-height: 1.55;
       overflow-x: hidden;
@@ -48,10 +48,7 @@
 
     a {
       color: inherit;
-    }
-
-    img, svg {
-      max-width: 100%;
+      text-decoration: none;
     }
 
     .container {
@@ -63,47 +60,43 @@
       position: sticky;
       top: 0;
       z-index: 50;
-      background: rgba(255, 255, 255, 0.96);
+      background: rgba(255, 255, 255, 0.94);
       backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--line);
+      box-shadow: 0 10px 35px rgba(7, 26, 51, 0.06);
     }
 
     .topbar-inner {
+      min-height: 76px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 14px;
-      min-height: 76px;
       padding: 12px 0;
     }
 
     .logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      color: var(--green);
-      text-decoration: none;
-      font-weight: 900;
-      font-size: 18px;
-      min-width: 0;
+      color: var(--navy);
+      font-weight: 950;
+      line-height: 1;
+      display: inline-flex;
+      flex-direction: column;
+      transform: skew(-8deg);
     }
 
-    .logo-mark {
-      width: 44px;
-      height: 44px;
-      flex: 0 0 44px;
-      border-radius: 13px;
-      background: var(--green);
-      color: white;
-      display: grid;
-      place-items: center;
-      font-weight: 900;
-      font-size: 22px;
-      letter-spacing: -1px;
+    .logo-main {
+      font-size: 38px;
+      letter-spacing: -4px;
     }
 
-    .logo-text {
-      white-space: nowrap;
+    .logo-main span {
+      color: var(--orange);
+    }
+
+    .logo-sub {
+      font-size: 10px;
+      letter-spacing: 0.48em;
+      margin-top: 2px;
     }
 
     .top-actions {
@@ -119,7 +112,7 @@
       background: white;
       border: 1px solid var(--line);
       border-radius: 999px;
-      box-shadow: 0 8px 18px rgba(15, 63, 34, 0.08);
+      box-shadow: 0 8px 18px rgba(7, 26, 51, 0.08);
     }
 
     .lang button {
@@ -134,35 +127,57 @@
     }
 
     .lang button.active {
-      background: var(--green);
+      background: var(--navy);
       color: white;
     }
 
     .phone-top {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
       padding: 10px 14px;
       border-radius: 999px;
-      border: 1px solid var(--line);
-      background: white;
-      color: var(--green);
-      text-decoration: none;
+      background: var(--navy);
+      color: white;
       font-weight: 900;
       white-space: nowrap;
+      box-shadow: 0 14px 30px rgba(7, 26, 51, 0.18);
     }
 
     .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 86px 0 66px;
       background:
-        radial-gradient(circle at 18% 8%, rgba(255, 107, 53, 0.23), transparent 28%),
-        linear-gradient(135deg, var(--green) 0%, var(--green-dark) 100%);
-      color: white;
-      padding: 72px 0 52px;
+        radial-gradient(circle at 84% 24%, rgba(255, 107, 0, 0.15), transparent 26%),
+        linear-gradient(135deg, #ffffff 0%, #f6f8fb 58%, #eef3f8 100%);
+    }
+
+    .hero::before,
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 560px;
+      height: 100px;
+      background: linear-gradient(90deg, var(--orange), var(--navy));
+      transform: rotate(-38deg);
+      opacity: 0.95;
+    }
+
+    .hero::before {
+      left: -170px;
+      top: -58px;
+    }
+
+    .hero::after {
+      right: -190px;
+      bottom: 22px;
     }
 
     .hero-grid {
+      position: relative;
+      z-index: 2;
       display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
+      grid-template-columns: 1.08fr 0.92fr;
       gap: 34px;
       align-items: center;
     }
@@ -173,24 +188,26 @@
       gap: 8px;
       padding: 9px 13px;
       border-radius: 999px;
-      background: rgba(255, 255, 255, 0.12);
-      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: rgba(255, 107, 0, 0.1);
+      border: 1px solid rgba(255, 107, 0, 0.2);
+      color: var(--navy);
       margin-bottom: 18px;
-      font-weight: 800;
+      font-weight: 900;
     }
 
     h1 {
-      font-size: clamp(34px, 6vw, 62px);
-      line-height: 1.04;
-      letter-spacing: -1.5px;
+      color: var(--navy);
+      font-size: clamp(38px, 6vw, 66px);
+      line-height: 1.02;
+      letter-spacing: -2px;
       margin-bottom: 18px;
-      max-width: 760px;
+      max-width: 780px;
     }
 
     .lead {
-      max-width: 680px;
+      max-width: 690px;
       font-size: clamp(18px, 2.2vw, 23px);
-      color: rgba(255, 255, 255, 0.88);
+      color: #34445b;
       margin-bottom: 24px;
     }
 
@@ -208,14 +225,13 @@
       gap: 9px;
       min-height: 54px;
       padding: 15px 22px;
-      border-radius: 999px;
+      border-radius: 16px;
       border: 0;
       font-size: 17px;
       font-weight: 900;
-      text-decoration: none;
       cursor: pointer;
-      transition: transform 0.18s ease, background 0.18s ease, box-shadow 0.18s ease;
       text-align: center;
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
     }
 
     .btn:hover {
@@ -223,23 +239,28 @@
     }
 
     .btn-primary {
-      background: var(--orange);
+      background: linear-gradient(135deg, var(--orange), var(--orange-2));
       color: white;
-      box-shadow: 0 16px 30px rgba(255, 107, 53, 0.32);
-    }
-
-    .btn-primary:hover {
-      background: var(--orange-dark);
+      box-shadow: 0 18px 38px rgba(255, 107, 0, 0.26);
     }
 
     .btn-secondary {
+      background: var(--navy);
+      color: white;
+      box-shadow: 0 16px 34px rgba(7, 26, 51, 0.18);
+    }
+
+    .btn-light {
       background: white;
-      color: var(--green);
+      color: var(--navy);
+      border: 1px solid var(--line);
+      box-shadow: 0 14px 34px rgba(7, 26, 51, 0.08);
     }
 
     .hero-note {
-      color: rgba(255, 255, 255, 0.72);
-      font-size: 14px;
+      color: var(--muted);
+      font-size: 15px;
+      font-weight: 800;
     }
 
     .stats {
@@ -250,15 +271,17 @@
     }
 
     .stat {
-      border: 1px solid rgba(255, 255, 255, 0.16);
-      background: rgba(255, 255, 255, 0.08);
-      border-radius: 18px;
-      padding: 18px;
+      background: rgba(255, 255, 255, 0.86);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 20px;
       min-height: 116px;
+      box-shadow: 0 18px 50px rgba(7, 26, 51, 0.08);
     }
 
     .stat strong {
       display: block;
+      color: var(--orange);
       font-size: 32px;
       line-height: 1.05;
       margin-bottom: 8px;
@@ -266,25 +289,36 @@
     }
 
     .stat span {
-      color: rgba(255, 255, 255, 0.78);
+      color: var(--navy);
       font-size: 16px;
+      font-weight: 800;
     }
 
-    .calc-card, .card {
+    .calc-card,
+    .card {
       background: white;
       border: 1px solid var(--line);
-      border-radius: var(--radius);
+      border-radius: 28px;
       box-shadow: var(--shadow);
       overflow: hidden;
     }
 
     .calc-card {
-      padding: 24px;
+      position: relative;
+      padding: 26px;
+    }
+
+    .calc-card::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 7px;
+      background: linear-gradient(180deg, var(--orange), var(--navy));
     }
 
     .calc-card h2 {
-      color: var(--green);
-      font-size: 28px;
+      color: var(--navy);
+      font-size: 30px;
       line-height: 1.15;
       margin-bottom: 8px;
     }
@@ -307,17 +341,24 @@
     label {
       display: block;
       font-weight: 800;
-      color: var(--green);
+      color: var(--navy);
+      margin-bottom: 14px;
+    }
+
+    label span {
+      display: block;
       margin-bottom: 6px;
     }
 
-    input, select, textarea {
+    input,
+    select,
+    textarea {
       width: 100%;
-      border: 1px solid #d7e2d8;
+      border: 1px solid var(--line);
       border-radius: 14px;
       padding: 14px 16px;
       font: inherit;
-      background: white;
+      background: #f8fafd;
       color: var(--text);
       outline: none;
     }
@@ -327,15 +368,18 @@
       resize: vertical;
     }
 
-    input:focus, select:focus, textarea:focus {
-      border-color: var(--green-2);
-      box-shadow: 0 0 0 4px rgba(23, 98, 56, 0.12);
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: rgba(255, 107, 0, 0.7);
+      box-shadow: 0 0 0 4px rgba(255, 107, 0, 0.12);
+      background: white;
     }
 
     .result {
-      background: #f7faf5;
+      background: #ffffff;
       border: 1px solid var(--line);
-      border-radius: 18px;
+      border-radius: 20px;
       padding: 18px;
       margin-top: 14px;
     }
@@ -350,7 +394,7 @@
     .result strong {
       display: block;
       color: var(--orange);
-      font-size: 42px;
+      font-size: 44px;
       line-height: 1.05;
       margin-bottom: 8px;
     }
@@ -371,7 +415,7 @@
     }
 
     .section-title h2 {
-      color: var(--green);
+      color: var(--navy);
       font-size: clamp(30px, 5.5vw, 46px);
       line-height: 1.08;
       letter-spacing: -0.8px;
@@ -391,6 +435,7 @@
     }
 
     .service {
+      position: relative;
       padding: 28px;
       display: flex;
       flex-direction: column;
@@ -398,9 +443,17 @@
       min-height: 100%;
     }
 
+    .service::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 6px;
+      background: linear-gradient(180deg, var(--orange), var(--navy));
+    }
+
     .service-head h3 {
-      color: var(--green);
-      font-size: 27px;
+      color: var(--navy);
+      font-size: 26px;
       line-height: 1.15;
       margin-bottom: 8px;
       letter-spacing: -0.3px;
@@ -408,7 +461,7 @@
 
     .price {
       color: var(--orange);
-      font-size: 40px;
+      font-size: 38px;
       line-height: 1.05;
       font-weight: 900;
       letter-spacing: -0.5px;
@@ -416,7 +469,7 @@
 
     .service p {
       color: var(--muted);
-      font-size: 19px;
+      font-size: 18px;
       line-height: 1.55;
     }
 
@@ -426,12 +479,11 @@
       margin-top: auto;
       padding: 9px 14px;
       border-radius: 999px;
-      background: #dcffe4;
-      color: var(--green);
+      background: rgba(255, 107, 0, 0.1);
+      color: var(--navy);
+      border: 1px solid rgba(255, 107, 0, 0.18);
       font-weight: 900;
       font-size: 15px;
-      max-width: 100%;
-      white-space: normal;
     }
 
     .grid-2 {
@@ -460,7 +512,7 @@
       width: 64px;
       height: 64px;
       border-radius: 18px;
-      background: var(--green);
+      background: var(--navy);
       color: white;
       display: grid;
       place-items: center;
@@ -469,7 +521,7 @@
     }
 
     .step h3 {
-      color: var(--green);
+      color: var(--navy);
       font-size: 26px;
       line-height: 1.2;
       margin-bottom: 6px;
@@ -477,7 +529,7 @@
 
     .step p {
       color: var(--muted);
-      font-size: 20px;
+      font-size: 19px;
       line-height: 1.45;
     }
 
@@ -497,7 +549,7 @@
     }
 
     .feature span {
-      color: var(--green);
+      color: var(--orange);
       font-weight: 900;
       font-size: 20px;
     }
@@ -511,12 +563,13 @@
 
     .order-side {
       background:
-        radial-gradient(circle at 15% 10%, rgba(255, 107, 53, 0.18), transparent 30%),
-        linear-gradient(135deg, var(--green) 0%, var(--green-dark) 100%);
+        radial-gradient(circle at 100% 0%, rgba(255, 107, 0, 0.38), transparent 32%),
+        linear-gradient(145deg, var(--navy), var(--navy-2));
       color: white;
-      border-radius: var(--radius);
+      border-radius: 28px;
       padding: 32px;
       min-height: 100%;
+      box-shadow: var(--shadow);
     }
 
     .order-side h2 {
@@ -539,6 +592,7 @@
 
     .contact-line a {
       color: white;
+      text-decoration: underline;
       text-decoration-thickness: 2px;
       text-underline-offset: 4px;
     }
@@ -551,11 +605,6 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 14px;
-      margin-bottom: 14px;
-    }
-
-    .form-card label:not(.checkbox) {
-      margin-bottom: 14px;
     }
 
     .checkbox {
@@ -572,36 +621,23 @@
       width: 28px;
       height: 28px;
       margin-top: 2px;
-      accent-color: var(--green);
+      accent-color: var(--orange);
     }
 
-    .honeypot {
-      position: absolute;
-      left: -9999px;
-      opacity: 0;
-      height: 0;
-    }
-
-    .success, .error {
+    .success {
       display: none;
       margin-top: 16px;
       padding: 14px 16px;
       border-radius: 14px;
       font-weight: 800;
-    }
-
-    .success {
-      background: #e8f9ec;
-      color: var(--green);
-    }
-
-    .error {
-      background: #fff1ed;
-      color: #a5381a;
+      background: rgba(255, 107, 0, 0.1);
+      color: var(--navy);
     }
 
     footer {
-      background: #101c2b;
+      background:
+        radial-gradient(circle at 0% 100%, rgba(255, 107, 0, 0.18), transparent 32%),
+        linear-gradient(145deg, var(--navy), var(--navy-2));
       color: white;
       padding: 50px 0;
     }
@@ -614,7 +650,6 @@
 
     footer a {
       color: rgba(255, 255, 255, 0.88);
-      text-decoration: none;
     }
 
     .footer-grid {
@@ -639,9 +674,10 @@
       grid-template-columns: 1fr 1fr;
       gap: 12px;
       padding: 12px 18px calc(12px + env(safe-area-inset-bottom));
-      background: rgba(244, 247, 242, 0.9);
+      background: rgba(255, 255, 255, 0.94);
       backdrop-filter: blur(14px);
-      border-top: 1px solid rgba(223, 231, 223, 0.85);
+      border-top: 1px solid var(--line);
+      box-shadow: 0 -14px 40px rgba(7, 26, 51, 0.12);
     }
 
     .sticky-mobile .btn {
@@ -676,51 +712,52 @@
         min-height: 68px;
       }
 
-      .logo-text,
       .phone-top {
         display: none;
       }
 
-      .logo-mark {
-        width: 54px;
-        height: 54px;
-        flex-basis: 54px;
-        border-radius: 14px;
-        font-size: 24px;
+      .hero {
+        padding: 48px 0 44px;
       }
 
-      .hero {
-        padding: 46px 0 42px;
+      .hero::before {
+        width: 360px;
+        height: 70px;
+        left: -160px;
+        top: -40px;
+      }
+
+      .hero::after {
+        width: 360px;
+        height: 70px;
+        right: -170px;
+        bottom: 10px;
       }
 
       h1 {
-        font-size: 44px;
+        font-size: 40px;
         letter-spacing: -1px;
       }
 
       .lead {
-        font-size: 22px;
+        font-size: 21px;
       }
 
       .cta-row .btn {
         width: 100%;
       }
 
-      .stats {
-        grid-template-columns: 1fr;
-        gap: 14px;
-      }
-
-      .stat {
-        min-height: 0;
-        padding: 24px;
-      }
-
+      .stats,
       .form-grid,
       .form-row,
       .services-grid,
       .footer-grid {
         grid-template-columns: 1fr;
+      }
+
+      .stat {
+        min-height: 0;
+        padding: 22px;
       }
 
       section {
@@ -732,75 +769,9 @@
       }
 
       .section-title h2 {
-        font-size: 37px;
+        font-size: 36px;
       }
 
-      .section-title p {
-        font-size: 23px;
-      }
-
-      .service {
-        padding: 26px;
-      }
-
-      .service-head h3 {
-        font-size: 29px;
-      }
-
-      .price {
-        font-size: 39px;
-      }
-
-      .service p {
-        font-size: 23px;
-        line-height: 1.55;
-      }
-
-      .pill {
-        font-size: 17px;
-        line-height: 1.3;
-        padding: 10px 14px;
-      }
-
-      .step {
-        padding-left: 86px;
-      }
-
-      .step h3 {
-        font-size: 27px;
-      }
-
-      .step p,
-      .feature,
-      .order-side p {
-        font-size: 22px;
-      }
-
-      .order-side,
-      .form-card,
-      .calc-card {
-        padding: 26px;
-      }
-
-      .sticky-mobile {
-        display: grid;
-      }
-    }
-
-    @media (max-width: 420px) {
-      .container {
-        width: calc(100% - 28px);
-      }
-
-      .hero {
-        padding-top: 38px;
-      }
-
-      h1 {
-        font-size: 38px;
-      }
-
-      .lead,
       .section-title p,
       .service p,
       .step p,
@@ -809,8 +780,8 @@
         font-size: 20px;
       }
 
-      .section-title h2 {
-        font-size: 34px;
+      .service {
+        padding: 26px;
       }
 
       .service-head h3 {
@@ -821,9 +792,18 @@
         font-size: 36px;
       }
 
+      .step {
+        padding-left: 82px;
+      }
+
+      .order-side,
+      .form-card,
+      .calc-card {
+        padding: 24px;
+      }
+
       .sticky-mobile {
-        padding-left: 14px;
-        padding-right: 14px;
+        display: grid;
       }
     }
 
@@ -838,9 +818,9 @@
 <body>
   <header class="topbar">
     <div class="container topbar-inner">
-      <a class="logo" href="#top" aria-label="A2B Transport">
-        <span class="logo-mark">A2B</span>
-        <span class="logo-text">A2B Transport</span>
+      <a class="logo" href="#top" aria-label="A2B Express">
+        <span class="logo-main">A<span>2</span>B</span>
+        <span class="logo-sub">EXPRESS</span>
       </a>
 
       <div class="top-actions">
@@ -856,15 +836,16 @@
   <section id="top" class="hero">
     <div class="container hero-grid">
       <div>
-        <div class="badge" data-t="heroBadge">📍 Daugavpils un Latgale · 07:00-22:00</div>
-        <h1 data-t="heroTitle">Kravas pārvadājumi Daugavpilī šodien — ar cenu pirms darba</h1>
+        <div class="badge" data-t="heroBadge">📍 Daugavpils un Latgale · 07:00–22:00</div>
+        <h1 data-t="heroTitle">Kravas pārvadājumi Daugpilī šodien — ar cenu pirms darba</h1>
         <p class="lead" data-t="heroLead">Pārvākšanās, mēbeļu piegāde, krāvēji un atkritumu izvešana. Aprakstiet darbu WhatsApp — mēs ātri nosauksim cenu un laiku.</p>
 
         <div class="cta-row">
           <a class="btn btn-primary js-whatsapp" href="#" data-t="ctaWhatsapp">💬 Aprēķināt WhatsApp</a>
           <a class="btn btn-secondary js-phone-link" href="tel:+37128870200" data-t="ctaCall">📞 Zvanīt tagad</a>
-          <a class="btn btn-secondary" href="#order" data-t="ctaForm">📝 Atstāt pieteikumu</a>
+          <a class="btn btn-light" href="#order" data-t="ctaForm">📝 Atstāt pieteikumu</a>
         </div>
+
         <p class="hero-note" data-t="heroNote">Bez slēptām piemaksām: cenu saskaņojam pirms izbraukšanas.</p>
 
         <div class="stats">
@@ -1020,7 +1001,7 @@
         </div>
 
         <div class="card service">
-          <h2 style="color: var(--green); margin-bottom: 14px;" data-t="whyTitle">Kāpēc izvēlēties A2B</h2>
+          <h2 style="color: var(--navy); margin-bottom: 14px;" data-t="whyTitle">Kāpēc izvēlēties A2B</h2>
           <div class="features">
             <div class="feature"><span>✓</span><p data-t="why1">Fiksēta cena pirms darba sākuma.</p></div>
             <div class="feature"><span>✓</span><p data-t="why2">Var nosūtīt foto kravai — mazāk kļūdu aprēķinā.</p></div>
@@ -1036,16 +1017,14 @@
       <div class="container order-wrap">
         <aside class="order-side">
           <h2 data-t="formSideTitle">Atstājiet pieteikumu — sazināsimies tuvākajā laikā</h2>
-          <p data-t="formSideText">Ātrākais variants ir WhatsApp ar adresēm un foto. Formu izmantojiet, ja ērtāk gaidīt zvanu.</p>
+          <p data-t="formSideText">Pēc nospiešanas uz pogas pieteikums atvērsies WhatsApp. Jums atliks tikai nosūtīt ziņu.</p>
           <div class="contact-line">💬 <a class="js-whatsapp" href="#" data-t="formWhatsapp">Rakstīt WhatsApp</a></div>
           <div class="contact-line">📞 <a class="js-phone-link js-phone-text" href="tel:+37128870200">+371 28870200</a></div>
-          <div class="contact-line">🕘 <span data-t="hours">Katru dienu 07:00-22:00</span></div>
+          <div class="contact-line">🕘 <span data-t="hours">Katru dienu 07:00–22:00</span></div>
         </aside>
 
         <div class="card form-card">
-          <form id="orderForm" novalidate>
-            <input class="honeypot" type="text" id="company" name="company" tabindex="-1" autocomplete="off" />
-
+          <form id="orderForm">
             <div class="form-row">
               <label>
                 <span data-t="labelName">Vārds *</span>
@@ -1087,13 +1066,13 @@
 
             <label class="checkbox">
               <input type="checkbox" id="consent" required />
-              <span data-t="consent">Piekrītu, ka A2B Transport sazinās ar mani par šo pieteikumu.</span>
+              <span data-t="consent">Piekrītu, ka A2B Express sazinās ar mani par šo pieteikumu.</span>
             </label>
 
-            <button class="btn btn-primary" type="submit" style="width: 100%;" data-t="submit">📨 Nosūtīt pieteikumu</button>
+            <button class="btn btn-primary" type="submit" style="width: 100%;" data-t="submit">💬 Nosūtīt pieteikumu WhatsApp</button>
           </form>
-          <div id="success" class="success" data-t="success">✅ Paldies! Pieteikums nosūtīts. Sazināsimies tuvākajā laikā.</div>
-          <div id="error" class="error" data-t="error">❌ Neizdevās nosūtīt. Lūdzu, zvaniet vai rakstiet WhatsApp.</div>
+
+          <div id="success" class="success" data-t="success">Pieteikums sagatavots WhatsApp. Nosūtiet ziņu, lai mēs to saņemtu.</div>
         </div>
       </div>
     </section>
@@ -1102,20 +1081,20 @@
   <footer>
     <div class="container footer-grid">
       <div>
-        <strong>A2B Transport</strong>
+        <strong>A2B Express</strong>
         <p data-t="footerDesc">Kravas pārvadājumi, pārvākšanās un atkritumu izvešana Daugavpilī un Latgalē.</p>
       </div>
       <div>
         <strong data-t="footerContacts">Kontakti</strong>
         <p><a class="js-phone-link js-phone-text" href="tel:+37128870200">+371 28870200</a></p>
-        <p><a id="emailLink" href="mailto:info@a2btransport.lv">info@a2btransport.lv</a></p>
         <p><a class="js-whatsapp" href="#">WhatsApp</a></p>
+        <p><a href="https://www.a2b.center" target="_blank" rel="noopener">www.a2b.center</a></p>
       </div>
       <div>
         <strong data-t="footerArea">Darba zona un laiks</strong>
         <p>Daugavpils, Latgale</p>
-        <p data-t="footerHours">07:00-22:00, katru dienu</p>
-        <p style="margin-top: 12px;">© 2026 A2B Transport</p>
+        <p data-t="footerHours">07:00–22:00, katru dienu</p>
+        <p style="margin-top: 12px;">© 2026 A2B Express</p>
       </div>
     </div>
   </footer>
@@ -1129,14 +1108,12 @@
     const CONFIG = {
       phoneDisplay: '+371 28870200',
       phoneTel: '+37128870200',
-      whatsappNumber: '37128870200',
-      email: 'info@a2btransport.lv',
-      apiEndpoint: '/api/order'
+      whatsappNumber: '37128870200'
     };
 
     const TEXT = {
       lv: {
-        heroBadge: '📍 Daugavpils un Latgale · 07:00-22:00',
+        heroBadge: '📍 Daugavpils un Latgale · 07:00–22:00',
         heroTitle: 'Kravas pārvadājumi Daugavpilī šodien — ar cenu pirms darba',
         heroLead: 'Pārvākšanās, mēbeļu piegāde, krāvēji un atkritumu izvešana. Aprakstiet darbu WhatsApp — mēs ātri nosauksim cenu un laiku.',
         ctaWhatsapp: '💬 Aprēķināt WhatsApp',
@@ -1190,12 +1167,12 @@
         why1: 'Fiksēta cena pirms darba sākuma.',
         why2: 'Var nosūtīt foto kravai — mazāk kļūdu aprēķinā.',
         why3: 'Telefons un WhatsApp vienmēr redzami mobilajā versijā.',
-        why4: 'Pieteikums uzreiz nonāk operatoram.',
+        why4: 'Pieteikums nonāk WhatsApp uzreiz.',
         why5: 'LV/RU valodu izvēle klientiem Daugavpilī.',
         formSideTitle: 'Atstājiet pieteikumu — sazināsimies tuvākajā laikā',
-        formSideText: 'Ātrākais variants ir WhatsApp ar adresēm un foto. Formu izmantojiet, ja ērtāk gaidīt zvanu.',
+        formSideText: 'Pēc nospiešanas uz pogas pieteikums atvērsies WhatsApp. Jums atliks tikai nosūtīt ziņu.',
         formWhatsapp: 'Rakstīt WhatsApp',
-        hours: 'Katru dienu 07:00-22:00',
+        hours: 'Katru dienu 07:00–22:00',
         labelName: 'Vārds *',
         labelPhone: 'Telefons *',
         labelService: 'Pakalpojums *',
@@ -1207,19 +1184,19 @@
         phDate: 'Piemēram: šodien 18:00',
         phAddress: 'No kurienes uz kurieni',
         phDetails: 'Kas jāpārvieto, stāvi, lifts, krāvēji, foto var nosūtīt WhatsApp',
-        consent: 'Piekrītu, ka A2B Transport sazinās ar mani par šo pieteikumu.',
-        submit: '📨 Nosūtīt pieteikumu',
-        success: '✅ Paldies! Pieteikums nosūtīts. Sazināsimies tuvākajā laikā.',
-        error: '❌ Neizdevās nosūtīt. Lūdzu, zvaniet vai rakstiet WhatsApp.',
+        consent: 'Piekrītu, ka A2B Express sazinās ar mani par šo pieteikumu.',
+        submit: '💬 Nosūtīt pieteikumu WhatsApp',
+        success: 'Pieteikums sagatavots WhatsApp. Nosūtiet ziņu, lai mēs to saņemtu.',
         footerDesc: 'Kravas pārvadājumi, pārvākšanās un atkritumu izvešana Daugavpilī un Latgalē.',
         footerContacts: 'Kontakti',
         footerArea: 'Darba zona un laiks',
-        footerHours: '07:00-22:00, katru dienu',
+        footerHours: '07:00–22:00, katru dienu',
         stickyWhatsapp: 'WhatsApp',
         stickyCall: 'Zvanīt'
       },
+
       ru: {
-        heroBadge: '📍 Даугавпилс и Латгалия · 07:00-22:00',
+        heroBadge: '📍 Даугавпилс и Латгале · 07:00–22:00',
         heroTitle: 'Грузоперевозки в Даугавпилсе сегодня — цена до начала работы',
         heroLead: 'Переезды, доставка мебели, грузчики и вывоз мусора. Опишите задачу в WhatsApp — быстро назовём цену и время.',
         ctaWhatsapp: '💬 Рассчитать в WhatsApp',
@@ -1252,7 +1229,7 @@
         s3Text: 'В цену включено до 3 часов работы и вывоз до 3 м³ мусора. Удобное решение для освобождения квартиры.',
         s3Pill: 'Самый выгодный комплект',
         s4Title: '🛣️ За пределы города',
-        s4Text: 'Латгалия и вся Латвия. Минимальная цена выезда за город — 60 €.',
+        s4Text: 'Латгале и вся Латвия. Минимальная цена выезда за город — 60 €.',
         s4Pill: 'Цена за маршрут туда и обратно',
         s5Title: '⚡ Срочный вызов',
         s5Text: 'Если транспорт нужен как можно быстрее, приоритетно ищем ближайшее доступное время.',
@@ -1273,12 +1250,12 @@
         why1: 'Фиксированная цена до начала работы.',
         why2: 'Можно отправить фото груза — меньше ошибок в расчёте.',
         why3: 'Телефон и WhatsApp всегда видны в мобильной версии.',
-        why4: 'Заявка сразу приходит оператору.',
+        why4: 'Заявка сразу попадает в WhatsApp.',
         why5: 'Выбор LV/RU для клиентов в Даугавпилсе.',
         formSideTitle: 'Оставьте заявку — свяжемся в ближайшее время',
-        formSideText: 'Самый быстрый вариант — WhatsApp с адресами и фото. Форму используйте, если удобнее ждать звонка.',
+        formSideText: 'После нажатия на кнопку заявка откроется в WhatsApp. Вам останется только отправить сообщение.',
         formWhatsapp: 'Написать в WhatsApp',
-        hours: 'Каждый день 07:00-22:00',
+        hours: 'Каждый день 07:00–22:00',
         labelName: 'Имя *',
         labelPhone: 'Телефон *',
         labelService: 'Услуга *',
@@ -1290,14 +1267,13 @@
         phDate: 'Например: сегодня 18:00',
         phAddress: 'Откуда и куда',
         phDetails: 'Что перевезти, этажи, лифт, грузчики, фото можно отправить в WhatsApp',
-        consent: 'Согласен, что A2B Transport свяжется со мной по этой заявке.',
-        submit: '📨 Отправить заявку',
-        success: '✅ Спасибо! Заявка отправлена. Скоро свяжемся.',
-        error: '❌ Не удалось отправить. Пожалуйста, позвоните или напишите в WhatsApp.',
-        footerDesc: 'Грузоперевозки, переезды и вывоз мусора в Даугавпилсе и Латгалии.',
+        consent: 'Согласен, что A2B Express свяжется со мной по этой заявке.',
+        submit: '💬 Отправить заявку в WhatsApp',
+        success: 'Заявка подготовлена в WhatsApp. Отправьте сообщение, чтобы мы её получили.',
+        footerDesc: 'Грузоперевозки, переезды и вывоз мусора в Даугавпилсе и Латгале.',
         footerContacts: 'Контакты',
         footerArea: 'Зона работы и время',
-        footerHours: '07:00-22:00, каждый день',
+        footerHours: '07:00–22:00, каждый день',
         stickyWhatsapp: 'WhatsApp',
         stickyCall: 'Звонить'
       }
@@ -1311,12 +1287,6 @@
     };
 
     let currentLang = localStorage.getItem('a2b_lang') || 'lv';
-
-    function getServiceLabel(value) {
-      const select = document.getElementById('calcService');
-      const option = select.querySelector(`option[value="${value}"]`);
-      return option ? option.textContent.trim() : value;
-    }
 
     function makeWhatsAppUrl(message) {
       return `https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(message)}`;
@@ -1340,14 +1310,16 @@
       document.querySelectorAll('.js-phone-link').forEach((link) => {
         link.href = `tel:${CONFIG.phoneTel}`;
       });
+
       document.querySelectorAll('.js-phone-text').forEach((el) => {
         el.textContent = CONFIG.phoneDisplay;
       });
-      const emailLink = document.getElementById('emailLink');
-      if (emailLink) {
-        emailLink.href = `mailto:${CONFIG.email}`;
-        emailLink.textContent = CONFIG.email;
-      }
+    }
+
+    function getServiceLabel(selectId, value) {
+      const select = document.getElementById(selectId);
+      const option = select.querySelector(`option[value="${value}"]`);
+      return option ? option.textContent.trim() : value;
     }
 
     function updateCalculator() {
@@ -1364,8 +1336,8 @@
       document.getElementById('calcPrice').textContent = priceText;
 
       const message = currentLang === 'ru'
-        ? `Здравствуйте! Хочу рассчитать заказ. Услуга: ${getServiceLabel(service)}. Объём: ${document.getElementById('calcSize').selectedOptions[0].textContent}. Срок: ${document.getElementById('calcUrgency').selectedOptions[0].textContent}. Ориентир: от ${priceText}. Адреса/детали: `
-        : `Labdien! Vēlos aprēķināt pasūtījumu. Pakalpojums: ${getServiceLabel(service)}. Apjoms: ${document.getElementById('calcSize').selectedOptions[0].textContent}. Termiņš: ${document.getElementById('calcUrgency').selectedOptions[0].textContent}. Aptuveni no ${priceText}. Adreses/detaļas: `;
+        ? `Здравствуйте! Хочу рассчитать заказ.\n\nУслуга: ${getServiceLabel('calcService', service)}\nОбъём: ${document.getElementById('calcSize').selectedOptions[0].textContent}\nСрок: ${document.getElementById('calcUrgency').selectedOptions[0].textContent}\nОриентир: от ${priceText}\n\nАдреса/детали:`
+        : `Labdien! Vēlos aprēķināt pasūtījumu.\n\nPakalpojums: ${getServiceLabel('calcService', service)}\nApjoms: ${document.getElementById('calcSize').selectedOptions[0].textContent}\nTermiņš: ${document.getElementById('calcUrgency').selectedOptions[0].textContent}\nAptuveni no ${priceText}\n\nAdreses/detaļas:`;
 
       const calcWhatsapp = document.getElementById('calcWhatsapp');
       calcWhatsapp.href = makeWhatsAppUrl(message);
@@ -1408,16 +1380,12 @@
       document.getElementById(id).addEventListener('change', updateCalculator);
     });
 
-    document.getElementById('orderForm').addEventListener('submit', async (event) => {
+    document.getElementById('orderForm').addEventListener('submit', (event) => {
       event.preventDefault();
 
       const form = event.currentTarget;
       const success = document.getElementById('success');
-      const error = document.getElementById('error');
       success.style.display = 'none';
-      error.style.display = 'none';
-
-      if (document.getElementById('company').value) return;
 
       if (!form.checkValidity()) {
         form.reportValidity();
@@ -1425,31 +1393,13 @@
       }
 
       const serviceSelect = document.getElementById('service');
-      const payload = {
-        name: document.getElementById('name').value.trim(),
-        phone: document.getElementById('phone').value.trim(),
-        service: serviceSelect.selectedOptions[0].textContent.trim(),
-        date: document.getElementById('date').value.trim(),
-        address: document.getElementById('address').value.trim(),
-        details: document.getElementById('details').value.trim(),
-        lang: currentLang,
-        page: window.location.href
-      };
 
-      try {
-        const response = await fetch(CONFIG.apiEndpoint, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
-        });
+      const message = currentLang === 'ru'
+        ? `Здравствуйте! Хочу оставить заявку A2B Express.\n\nИмя: ${document.getElementById('name').value.trim()}\nТелефон: ${document.getElementById('phone').value.trim()}\nУслуга: ${serviceSelect.selectedOptions[0].textContent.trim()}\nКогда нужно: ${document.getElementById('date').value.trim() || 'не указано'}\nАдрес / маршрут: ${document.getElementById('address').value.trim() || 'не указано'}\nДетали: ${document.getElementById('details').value.trim() || 'нет'}`
+        : `Labdien! Vēlos pieteikt A2B Express pakalpojumu.\n\nVārds: ${document.getElementById('name').value.trim()}\nTelefons: ${document.getElementById('phone').value.trim()}\nPakalpojums: ${serviceSelect.selectedOptions[0].textContent.trim()}\nKad vajag: ${document.getElementById('date').value.trim() || 'nav norādīts'}\nAdrese / maršruts: ${document.getElementById('address').value.trim() || 'nav norādīts'}\nDetaļas: ${document.getElementById('details').value.trim() || 'nav'}`;
 
-        if (!response.ok) throw new Error('Request failed');
-
-        success.style.display = 'block';
-        form.reset();
-      } catch (err) {
-        error.style.display = 'block';
-      }
+      window.open(makeWhatsAppUrl(message), '_blank', 'noopener,noreferrer');
+      success.style.display = 'block';
     });
 
     updateContactLinks();
